@@ -23,6 +23,7 @@ KBL contains data of a single harness and includes the physical bordnet only. It
 - Rudimentary master data information
 - Simple change and approval meta-data
 - Simple external references
+- Generated AssertJ assertions in additional jar files to write fluent assertions on KBL objects.
 
 
 ## Download
@@ -41,9 +42,24 @@ Latest Version: [![Maven Central](https://maven-badges.herokuapp.com/maven-centr
 </dependency>
 ```
 
+and for the assertion library:
+
+```xml
+<dependency>
+    <groupId>com.foursoft.kblmodel</groupId>
+    <artifactId>kbl24-assertions</artifactId>
+    <version>VERSION</version>
+    <scope>test</scope>
+</dependency>
+```
+
 ### Gradle
 ```groovy
 implementation group: 'com.foursoft.kblmodel', name: 'kbl24', version: 'VERSION'
+```
+
+```groovy
+testCompile group: 'com.foursoft.kblmodel', name: 'kbl24-assertions', version: 'VERSION'
 ```
 
 ## Code examples
@@ -95,13 +111,8 @@ More examples can be found [in the examples](https://github.com/4Soft-de/kbl-mod
 public class MyKblReader {
     public void readKblFile(final String pathToFile) throws JAXBException, IOException {
         try (final InputStream is = MyKblReader.class.getResourceAsStream(pathToFile)) {
-            final ExtendedUnmarshaller<KBLContainer, Identifiable> unmarshaller =
-                    new ExtendedUnmarshaller<KBLContainer, Identifiable>(
-                        KBLContainer.class).withBackReferences()
-                        .withIdMapper(Identifiable.class, Identifiable::getXmlId);
-
-            final JaxbModel<KBLContainer, Identifiable> model = unmarshaller
-                    .unmarshall(new BufferedInputStream(is));
+            final KblReader localReader = KblReader.getLocalReader();
+            final JaxbModel<KBLContainer, Identifiable> model = localReader.readModel(is);
 
             final KblConnectorOccurrence occurrence = model.getIdLookup()
                     .findById(KblConnectorOccurrence.class, "I1616")
@@ -180,24 +191,11 @@ public class MyKblWriter {
         contactPoint3.setId("SCHNUPSI");
         contactPoint3.setXmlId("id_1236");
 
-        final Marshaller marshaller = jc.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        final StringWriter stringWriter = new StringWriter();
+        final KblWriter localWriter = KblWriter.getLocalWriter();
 
-        marshaller.marshal(root, stringWriter);
-
-        final String result = stringWriter.toString();
-
-        final Path outPath = Paths.get(target).toAbsolutePath();
-        if (Files.notExists(outPath))  {
-            final Path parentFolder = outPath.getParent();
-            if (parentFolder != null && Files.notExists(parentFolder)) {
-                Files.createDirectory(parentFolder);
-            }
-            Files.createFile(outPath);
+        try (final FileOutputStream outputStream = new FileOutputStream(target)) {
+            localWriter.write(root, outputStream);
         }
-
-        Files.write(outPath, result.getBytes(StandardCharsets.UTF_8));
     }
 }
 ```
@@ -223,6 +221,50 @@ public class MyKblWriter {
         <Terminal_occurrence id="id_4711"/>
     </Harness>
 </kbl:KBL_container>
+```
+### Assertions on KBL Files
+For each KBL version we provide an additional jar file with generated AssertJ assertions to write fluent assertions on VEC elements. The assertions are generated with the [AssertJ assertions generator](https://joel-costigliola.github.io/assertj/assertj-assertions-generator-maven-plugin.html). 
+
+Below is a short example for the usage of these assertions in combination with native AssertJ-Assertions. For detailed information please refer to the original [AssertJ Documentation](https://assertj.github.io/doc/).
+
+Please not the static imports of the [assertions entry point](https://joel-costigliola.github.io/assertj/assertj-core-custom-assertions.html) and the order of `...Assertions.assertThat;`.
+
+```java
+package com.foursoft.kblmodel.test;
+
+import static com.foursoft.kblmodel.kbl24.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.atIndex;
+
+import org.junit.jupiter.api.Test;
+
+import com.foursoft.kblmodel.kbl24.KblGeneralWire;
+import com.foursoft.kblmodel.kbl24.KblSpecialWireOccurrence;
+import com.foursoft.kblmodel.kbl24.KblUnit;
+
+public class KblSampleTest {
+
+	@Test
+	public void testWireOccurrenceCreation() {
+		//Find the element to test, maybe with a traversing visitor...
+		final KblUnit unitMM = ... ;
+		final KblGeneralWire wire = ...;
+		final KblSpecialWireOccurrence specialWireOccurrence = ...;
+
+		assertThat(specialWireOccurrence).hasSpecialWireId("1111")
+				.hasPart(wire)
+				.satisfies(w -> {
+					assertThat(w.getLengthInformations()).hasSize(1)
+							.satisfies(l -> {
+								assertThat(l).hasLengthType("Production")
+										.satisfies(v -> {
+											assertThat(v.getLengthValue()).hasUnitComponent(unitMM)
+													.hasValueComponent(0.0d);
+										});
+							}, atIndex(0));
+				});
+	}
+}
 ```
 
 ## Contributing
