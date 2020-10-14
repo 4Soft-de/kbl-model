@@ -1,6 +1,7 @@
 ---
 name: Feature Request
 about: Want to request a new feature for our KBL model?
+labels: "enhancement"
 ---
 
 ## General Troubleshooting
