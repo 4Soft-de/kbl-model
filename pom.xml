@@ -110,7 +110,7 @@
                 <version>${jaxb-api.version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.xml.bind</groupId>
+                <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-core</artifactId>
                 <scope>provided</scope>
                 <version>${jaxb-core.version}</version>
