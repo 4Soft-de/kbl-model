@@ -95,7 +95,6 @@
         <defaultGoal>install</defaultGoal>
         <pluginManagement>
             <plugins>
-
                 <plugin>
                     <groupId>org.jvnet.jaxb2.maven2</groupId>
                     <artifactId>maven-jaxb2-plugin</artifactId>
@@ -144,8 +143,5 @@
 
             </plugins>
         </pluginManagement>
-
     </build>
-
-
 </project>
