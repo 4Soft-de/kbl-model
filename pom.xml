@@ -34,6 +34,8 @@
         <jaxb-delegate-plugin.version>2.3.0</jaxb-delegate-plugin.version>
         <jaxb2-basics-annotate.version>1.1.0</jaxb2-basics-annotate.version>
 
+        <!-- build & release properties -->
+        <sonar.projectKey>4Soft-de_kbl-model</sonar.projectKey>
 
     </properties>
 
