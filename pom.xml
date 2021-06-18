@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.foursoft.jaxb2</groupId>
         <artifactId>jaxb-parent</artifactId>
-        <version>0.0.3</version>
+        <version>0.0.4</version>
     </parent>
 
     <groupId>com.foursoft.kblmodel</groupId>
     <artifactId>kbl-parent</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
 
@@ -23,7 +23,7 @@
         <java.version>1.8</java.version>
 
         <!-- Dependencies -->
-        <navigation-extender.version>1.2.1</navigation-extender.version>
+        <navigation-extender.version>1.2.3</navigation-extender.version>
 
         <!-- Plugins -->
         <maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
