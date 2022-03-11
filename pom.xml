@@ -1,6 +1,6 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -11,7 +11,7 @@
 
     <groupId>com.foursoft.harness.kbl</groupId>
     <artifactId>kbl-parent</artifactId>
-    <version>2.0.2</version>
+    <version>2.1.0</version>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
 
@@ -23,7 +23,7 @@
         <java.version>11</java.version>
 
         <!-- Dependencies -->
-        <navigation-extender.version>2.0.1</navigation-extender.version>
+        <navigation-extender.version>2.1.0</navigation-extender.version>
 
         <!-- Plugins -->
         <maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
@@ -61,7 +61,6 @@
 
     <modules>
         <module>v24</module>
-        <module>kbl24-assertions</module>
     </modules>
 
     <developers>
