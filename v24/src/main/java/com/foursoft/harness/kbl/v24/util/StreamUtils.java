@@ -28,7 +28,9 @@ package com.foursoft.harness.kbl.v24.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collector;
+import java.util.stream.Stream;
 
 /**
  * Utility class that contains aggregation functions that are reused throughout
@@ -86,6 +88,33 @@ public final class StreamUtils {
             }
             return list.get(0);
         });
+    }
+
+    /**
+     * Returns a Function which returns a Stream of elements of the given class.
+     * <p>
+     * Can be used together with {@link Stream#flatMap(Function)} to filter the stream.
+     * <pre>
+     * {@code
+     * List&lt;Developer&gt; developers = streamOfPeople
+     *   .flatMap(StreamUtils.ofClass(Developer.class))
+     *   .collect(Collectors.toList());
+     * }
+     * </pre>
+     *
+     * @param classOfT Class an element must have to stay in the stream.
+     * @param <E>      Input type of the function.
+     * @param <T>      Type of the class which the stream should have.
+     * @return A stream with the input cast to the given class if applicable.
+     * If this is not the case, an empty stream will be returned.
+     */
+    public static <E, T> Function<E, Stream<T>> ofClass(final Class<T> classOfT) {
+        return t -> {
+            if (t == null || !classOfT.isAssignableFrom(t.getClass())) {
+                return Stream.empty();
+            }
+            return Stream.of(classOfT.cast(t));
+        };
     }
 
 }
