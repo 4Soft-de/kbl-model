@@ -23,35 +23,19 @@
  * THE SOFTWARE.
  * =========================LICENSE_END==================================
  */
-package com.foursoft.harness.kbl.v24;
+package com.foursoft.harness.kbl.v25.validation;
 
-import com.foursoft.harness.kbl.common.util.StreamUtils;
-import org.junit.jupiter.api.Test;
+import javax.xml.validation.Schema;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+public class SchemaFactory {
 
-import static org.assertj.core.api.Assertions.assertThat;
+    private static final String SCHEMA_PATH = "kbl25/KBL25_SR1.xsd";
 
-class HasInstallationInformationTest {
+    private SchemaFactory() {
+        // Hide constructor
+    }
 
-    @Test
-    void installationInstructionTest() throws IOException {
-        try (final InputStream is = getClass().getClassLoader().getResourceAsStream("sample.kbl")) {
-            final KBLContainer kblContainer = new KblReader().read(is);
-
-            final KblConnectorOccurrence occurrence = kblContainer.getHarness().getConnectorOccurrences()
-                    .stream()
-                    .filter(c -> c.getId().equals("Id184"))
-                    .collect(StreamUtils.findOne());
-
-            assertThat(occurrence)
-                    .returns(Optional.of("Instruction_value391"), c -> c.getInstallationInstructionValue("Instruction_type391"))
-                    .returns(List.of("Instruction_value391"), c -> c.installationInstructionValues("Instruction_type391")
-                            .collect(Collectors.toList()));
-        }
+    public static Schema getSchema() {
+        return com.foursoft.jaxb.navext.runtime.io.validation.SchemaFactory.getSchema(SCHEMA_PATH);
     }
 }

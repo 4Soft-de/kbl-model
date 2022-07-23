@@ -1,6 +1,6 @@
 /*-
  * ========================LICENSE_START=================================
- * kbl-v24
+ * kbl-v25
  * %%
  * Copyright (C) 2020 - 2022 4Soft GmbH
  * %%
@@ -23,14 +23,15 @@
  * THE SOFTWARE.
  * =========================LICENSE_END==================================
  */
-package com.foursoft.harness.kbl.v24.validation;
+package com.foursoft.harness.kbl.v25.validation;
 
 import com.foursoft.harness.kbl.common.exception.KblException;
 import com.foursoft.harness.kbl.common.validation.KblValidation;
-import com.foursoft.harness.kbl.v24.KBLContainer;
-import com.foursoft.harness.kbl.v24.KblHarness;
-import com.foursoft.harness.kbl.v24.KblHarnessContent;
-import com.foursoft.harness.kbl.v24.KblWriter;
+import com.foursoft.harness.kbl.v25.KBLContainer;
+import com.foursoft.harness.kbl.v25.KblHarness;
+import com.foursoft.harness.kbl.v25.KblHarnessContent;
+import com.foursoft.harness.kbl.v25.KblWriter;
+import com.foursoft.jaxb.navext.runtime.io.utils.ValidationEventLogger;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -40,7 +41,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class KblValidationTest {
-
     @Test
     void testSchema() {
         final KBLContainer root = new KBLContainer();
@@ -58,7 +58,7 @@ class KblValidationTest {
         harness.setContent(KblHarnessContent.HARNESS_COMPLETE_SET);
         root.setHarness(harness);
 
-        final KblWriter kblWriter = new KblWriter();
+        final KblWriter kblWriter = new KblWriter(new ValidationEventLogger());
         final String result = kblWriter.writeToString(root);
 
         final Collection<String> errors = new ArrayList<>();

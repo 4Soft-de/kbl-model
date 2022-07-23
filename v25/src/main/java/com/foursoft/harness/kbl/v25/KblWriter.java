@@ -23,35 +23,35 @@
  * THE SOFTWARE.
  * =========================LICENSE_END==================================
  */
-package com.foursoft.harness.kbl.v24;
+package com.foursoft.harness.kbl.v25;
 
-import com.foursoft.harness.kbl.common.util.StreamUtils;
-import org.junit.jupiter.api.Test;
+import com.foursoft.jaxb.navext.runtime.io.utils.ValidationEventLogger;
+import com.foursoft.jaxb.navext.runtime.io.write.XMLWriter;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import javax.xml.bind.ValidationEvent;
+import java.util.function.Consumer;
 
-import static org.assertj.core.api.Assertions.assertThat;
+/**
+ * a default implementation for a kbl writer
+ */
+public final class KblWriter extends XMLWriter<KBLContainer> {
 
-class HasInstallationInformationTest {
-
-    @Test
-    void installationInstructionTest() throws IOException {
-        try (final InputStream is = getClass().getClassLoader().getResourceAsStream("sample.kbl")) {
-            final KBLContainer kblContainer = new KblReader().read(is);
-
-            final KblConnectorOccurrence occurrence = kblContainer.getHarness().getConnectorOccurrences()
-                    .stream()
-                    .filter(c -> c.getId().equals("Id184"))
-                    .collect(StreamUtils.findOne());
-
-            assertThat(occurrence)
-                    .returns(Optional.of("Instruction_value391"), c -> c.getInstallationInstructionValue("Instruction_type391"))
-                    .returns(List.of("Instruction_value391"), c -> c.installationInstructionValues("Instruction_type391")
-                            .collect(Collectors.toList()));
-        }
+    /**
+     * create a default KblWriter with a default validation events logger {@link ValidationEventLogger}
+     */
+    public KblWriter() {
+        super(KBLContainer.class, new ValidationEventLogger());
     }
+
+    /**
+     * create a default KblWriter with a custom validation events logger
+     *
+     * @param validationEventConsumer a custom validation events consumer
+     */
+    public KblWriter(final Consumer<ValidationEvent> validationEventConsumer) {
+        super(KBLContainer.class, validationEventConsumer);
+
+    }
+
 }
+
