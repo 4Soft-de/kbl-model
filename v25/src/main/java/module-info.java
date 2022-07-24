@@ -23,35 +23,17 @@
  * THE SOFTWARE.
  * =========================LICENSE_END==================================
  */
-package com.foursoft.harness.kbl.v24;
+open module com.foursoft.harness.kbl.v25 {
+    requires transitive com.foursoft.harness.kbl.common;
+    requires com.foursoft.jaxb.navext.runtime;
 
-import com.foursoft.harness.kbl.common.util.StreamUtils;
-import org.junit.jupiter.api.Test;
+    requires java.xml;
+    requires java.xml.bind;
+    requires java.annotation;
+    requires org.slf4j;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+    exports com.foursoft.harness.kbl.v25;
+    exports com.foursoft.harness.kbl.v25.visitor;
+    exports com.foursoft.harness.kbl.v25.validation;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-class HasInstallationInformationTest {
-
-    @Test
-    void installationInstructionTest() throws IOException {
-        try (final InputStream is = getClass().getClassLoader().getResourceAsStream("sample.kbl")) {
-            final KBLContainer kblContainer = new KblReader().read(is);
-
-            final KblConnectorOccurrence occurrence = kblContainer.getHarness().getConnectorOccurrences()
-                    .stream()
-                    .filter(c -> c.getId().equals("Id184"))
-                    .collect(StreamUtils.findOne());
-
-            assertThat(occurrence)
-                    .returns(Optional.of("Instruction_value391"), c -> c.getInstallationInstructionValue("Instruction_type391"))
-                    .returns(List.of("Instruction_value391"), c -> c.installationInstructionValues("Instruction_type391")
-                            .collect(Collectors.toList()));
-        }
-    }
 }

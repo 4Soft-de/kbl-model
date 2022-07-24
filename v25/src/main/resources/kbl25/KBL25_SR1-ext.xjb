@@ -6,7 +6,7 @@
               extensionBindingPrefixes="xjc dg"
               jxb:extensionBindingPrefixes="xjc annox xhtml"
               node="/xs:schema"
-              schemaLocation="KBL24_SR1.xsd"
+              schemaLocation="KBL25_SR1.xsd"
               version="2.1">
 
 
@@ -32,13 +32,13 @@
 
     <jxb:bindings multiple="true"
                   node="//xs:complexType[@name='Accessory_occurrence' or @name='Assembly_part_occurrence' or @name='Cavity_plug_occurrence' or @name='Cavity_seal_occurrence' or @name='Co_pack_occurrence' or @name='Component_box_occurrence' or @name='Component_occurrence'  or @name='Connector_occurrence' or @name='Fixing_occurrence' or @name='General_wire_occurrence' or @name='Special_terminal_occurrence' or @name='Terminal_occurrence' or @name='Wire_protection_occurrence']">
-        <inheritance:implements>com.foursoft.harness.kbl.common.HasPart&lt;com.foursoft.harness.kbl.v24.KblPart&gt;
+        <inheritance:implements>com.foursoft.harness.kbl.common.HasPart&lt;com.foursoft.harness.kbl.v25.KblPart&gt;
         </inheritance:implements>
     </jxb:bindings>
 
     <jxb:bindings multiple="true"
                   node="//xs:complexType[@name!='Alias_identification' and .//xs:element[@name='Alias_id']]">
-        <inheritance:implements>com.foursoft.harness.kbl.common.HasAliasId&lt;com.foursoft.harness.kbl.v24.KblAliasIdentification&gt;</inheritance:implements>
+        <inheritance:implements>com.foursoft.harness.kbl.common.HasAliasId&lt;com.foursoft.harness.kbl.v25.KblAliasIdentification&gt;</inheritance:implements>
     </jxb:bindings>
 
     <jxb:bindings multiple="true" node="//xs:complexType[.//xs:element[@name='Description']]">
@@ -46,15 +46,15 @@
     </jxb:bindings>
 
     <jxb:bindings multiple="true" node="//xs:complexType[.//xs:element[@name='Installation_information']]">
-        <inheritance:implements>com.foursoft.harness.kbl.common.HasInstallationInformation&lt;com.foursoft.harness.kbl.v24.KblInstallationInstruction&gt;</inheritance:implements>
+        <inheritance:implements>com.foursoft.harness.kbl.common.HasInstallationInformation&lt;com.foursoft.harness.kbl.v25.KblInstallationInstruction&gt;</inheritance:implements>
     </jxb:bindings>
 
     <jxb:bindings multiple="true" node="//xs:complexType[.//xs:element[@name='Processing_information']]">
-        <inheritance:implements>com.foursoft.harness.kbl.common.HasProcessingInformation&lt;com.foursoft.harness.kbl.v24.KblProcessingInstruction&gt;</inheritance:implements>
+        <inheritance:implements>com.foursoft.harness.kbl.common.HasProcessingInformation&lt;com.foursoft.harness.kbl.v25.KblProcessingInstruction&gt;</inheritance:implements>
     </jxb:bindings>
 
     <jxb:bindings multiple="true" node="//xs:complexType[.//xs:element[@name='Reference_element']]">
-        <inheritance:implements>com.foursoft.harness.kbl.common.HasReferenceElement&lt;com.foursoft.harness.kbl.v24.ReferenceElement&gt;</inheritance:implements>
+        <inheritance:implements>com.foursoft.harness.kbl.common.HasReferenceElement&lt;com.foursoft.harness.kbl.v25.ReferenceElement&gt;</inheritance:implements>
     </jxb:bindings>
 
     <jxb:bindings multiple="true" node="//xs:complexType[.//xs:element[@name='Description']]">
@@ -62,7 +62,7 @@
     </jxb:bindings>
 
     <jxb:bindings multiple="true" node="//xs:complexType[.//xs:element[@name='Placement']]">
-        <inheritance:implements>com.foursoft.harness.kbl.common.HasPlacement&lt;com.foursoft.harness.kbl.v24.KblTransformation&gt;</inheritance:implements>
+        <inheritance:implements>com.foursoft.harness.kbl.common.HasPlacement&lt;com.foursoft.harness.kbl.v25.KblTransformation&gt;</inheritance:implements>
     </jxb:bindings>
 
     <jxb:bindings multiple="true" node="//xs:complexType[.//xs:element[@name='Instruction_type']]">
@@ -74,16 +74,17 @@
     </jxb:bindings>
 
     <jxb:bindings multiple="true" node="//xs:complexType[@name='KBL_container']">
-        <inheritance:implements>com.foursoft.harness.kbl.v24.HasParts</inheritance:implements>
+        <inheritance:implements>com.foursoft.harness.kbl.v25.HasParts</inheritance:implements>
     </jxb:bindings>
 
     <jxb:bindings multiple="true" node="//xs:complexType[@name='Harness']">
-        <inheritance:implements>com.foursoft.harness.kbl.v24.HasLocatedComponents</inheritance:implements>
-        <inheritance:implements>com.foursoft.harness.kbl.v24.HasConnectionOrOccurrences</inheritance:implements>
+        <inheritance:implements>com.foursoft.harness.kbl.v25.HasLocatedComponents</inheritance:implements>
+        <inheritance:implements>com.foursoft.harness.kbl.v25.HasConnectionOrOccurrences</inheritance:implements>
     </jxb:bindings>
 
     <jxb:bindings multiple="true" node="//xs:complexType[.//xs:element[@name='Related_assembly']]">
-        <inheritance:implements>com.foursoft.harness.kbl.v24.HasRelatedAssembly</inheritance:implements>
+        <inheritance:implements>com.foursoft.harness.kbl.v25.HasRelatedAssembly</inheritance:implements>
     </jxb:bindings>
+
 
 </jxb:bindings>
