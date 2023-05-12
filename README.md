@@ -1,10 +1,14 @@
-﻿# KBL model
+# KBL model
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Java11](https://img.shields.io/badge/java-11-blue)](https://img.shields.io/badge/java-11-blue)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.foursoft.harness.kbl/kbl-parent/badge.svg)](https://mvnrepository.com/artifact/com.foursoft.harness.kbl)
 
 JAXB-Model of the KBL, based on the underlying UML-model (not only the XSD).
+
+## Project Archiving / Migration
+
+**This and other XML projects were migrated into https://github.com/4Soft-de/harness-model. Please update your project to use the new project and open Issues / PRs there.**
 
 ## Introduction
 
