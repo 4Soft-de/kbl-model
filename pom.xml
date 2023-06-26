@@ -26,7 +26,7 @@
         <navigation-extender.version>2.1.0</navigation-extender.version>
 
         <!-- Plugins -->
-        <maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
+        <maven-jaxb2-plugin.version>0.15.3</maven-jaxb2-plugin.version>
 
         <!-- maven-jaxb2-plugin plugins -->
         <jaxb-visitor.version>2.8</jaxb-visitor.version>
